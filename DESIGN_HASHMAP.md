@@ -58,7 +58,7 @@ Since resizing is an expensive operation, we want to minimize how often it occur
 ### 3.2 Rehash Strategy
 **Mechanism:**
 There are two scenarios that will trigger a rehash:
-1. Load factor exceeds 0.7 during insertion.
+1. Load factor exceeds 0.7 during insertion [LATER], currently we will do stop-the-world rehashing.
 2. Excessive tombstones leading to performance degradation.
 During rehashing, we will create a new array with double the capacity and re-insert all active entries from the old array into the new one.
 This process will skip over tombstones to ensure that the new table is clean and efficient.
@@ -66,8 +66,8 @@ This process will skip over tombstones to ensure that the new table is clean and
 Rehash Strategy we will be implemented as follows:
 1. Allocate new array with double capacity.
 2. Do incremental rehashing: on each insertion or lookup, move a small number of entries from the old table to the new table.
-3. Once all entries are moved, switch to the new table and deallocate the old one
-4. We will also implement a background CRON job that would do the same incremental rehashing during periods of no look up and insertion activity.
+3. Once all entries are moved, switch to the new table and deallocate the old one [LATER], currently we will do stop-the-world rehashing.
+4. We will also implement a background CRON job that would do the same incremental rehashing during periods of no look up and insertion activity. [LATER]
 6. The steps to do during the rehashing are:
    - Allocate new array with double capacity.
    - When a request is made (insertion or lookup), move a small number of entries (e.g., 10) from the old table to the new table.

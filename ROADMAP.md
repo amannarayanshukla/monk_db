@@ -3,9 +3,13 @@
 ## Phase 1: In-Memory Engine (Volatile)
 ### Epic 1: Core Data Structures
 - [ ] **Story 1.1: The Warmup (HashMap)**
-    - [ ] Setup CMake and GTest infrastructure.
-    - [ ] Implement basic Put/Get wrapper.
-    - [ ] Benchmark vs std::unordered_map.
+    - [ ] **Design Doc:** Open Addressing, Linear Probing, Tombstones   
+    - [ ] **Skeleton:** CMake setup, Header definition (`hashmap.h`).
+    - [ ] **Implementation:** `FindSlot` (Linear Probe engine).
+    - [ ] **Implementation:** `Put` / `Get` / `Delete` with Load Factor check.
+    - [ ] **Implementation:** `Resize` (Stop-the-world).
+    - [ ] **Test:** Verify correctness with GoogleTest.
+    - [ ] **Benchmark:** vs std::unordered_map.
 - [ ] **Story 1.2: The MemTable (Skip List)**
     - [ ] Define Node structure (flexible height).
     - [ ] Implement `Put` (Insertion with random height).
@@ -54,62 +58,19 @@
 ---
 
 ## Phase 5: Observability & Production
-### Epic 5: Metrics & Benchmarking
+### Epic 5: Server, Metrics & Benchmarking
+- [ ] **Story 5.1: The Server Executable**
+  - [ ] Create `monkdb_server` (main.cpp).
+  - [ ] **Optimization:** Background thread for Compaction/Cleanup (The "Cron Job" for Hashmap, which will help create indexes).
 - [ ] **Story 5.1: Structured Logging**
     - [ ] Implement JSON Logger.
 - [ ] **Story 5.2: Latency Tracking**
     - [ ] Implement P95/P99 Histogram.
 - [ ] **Story 5.3: The Final Exam**
     - [ ] Load Generator (Write/Read mix).
+    - [ ] Compare Linear Probing vs. Baseline.
+    - [ ] **Optimization Decision:** Switch to Quadratic Probing/Incremental Resize *only* if P99 latency is unacceptable.
     - [ ] Final Benchmark Report.
 
 ## Out of Scope (Future Work)
 - Consistent Hashing(required for clustering, part of distributed architecture)
-
-- Transactions
-- Replication
-- Distributed Architecture
-- Advanced Querying (Secondary Indexes, Range Queries)
-- Multi-Language Bindings (Python, Java, etc.)
-- Cloud-Native Features (Kubernetes Operators, Cloud Storage Integration)
-- Backup and Restore Mechanisms
-- Security Features (Encryption at Rest, TLS)
-- Advanced Compaction Strategies (Tiered, Leveled)
-- Pluggable Storage Engines
-- Time-Series Data Support
-- Graph Data Support
-- Machine Learning Integration
-- User Management and Access Control
-- Monitoring Integrations (Prometheus, Grafana)
-- Automated Testing Frameworks (Fuzz Testing, Property-Based Testing)
-- Continuous Integration/Continuous Deployment (CI/CD) Pipelines
-- Documentation and Tutorials
-- Community Building and Support Channels
-- Commercial Support and Services
-- Plugin System for Extensions
-- Web-Based Management Console
-- Mobile Client Libraries
-- Data Migration Tools
-- Schema Management
-- Performance Profiling Tools
-- Customizable Compaction and Flush Policies
-- Real-Time Analytics
-- Integration with Big Data Ecosystems (Hadoop, Spark)
-- Support for Multiple Storage Backends (SSD, HDD, NVMe)
-- Advanced Data Structures (e.g., HyperLogLog, Count-Min Sketch)
-- Integration with Message Queues (Kafka, RabbitMQ)
-- Support for Geospatial Data
-- Data Versioning and Auditing
-- Support for JSON/BSON Data Types
-- Integration with Search Engines (Elasticsearch, Solr)
-- Support for Multi-Tenancy
-- Advanced Backup Strategies (Incremental, Differential)
-- Support for Data Compression Algorithms (Zstd, LZ4)
-- Integration with Configuration Management Tools (Ansible, Puppet)
-- Support for Event-Driven Architectures (Webhooks, Serverless)
-- Advanced Security Features (Role-Based Access Control, Auditing)
-- Support for Hybrid Storage Models (In-Memory + Disk)
-- Integration with Data Visualization Tools (Tableau, Power BI)
-- Support for Custom Data Types and Serializers
-- Integration with Cloud Providers (AWS, GCP, Azure)
-- Support for Real-Time Data Streaming
