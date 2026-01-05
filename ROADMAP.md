@@ -3,9 +3,9 @@
 ## Phase 1: In-Memory Engine (Volatile)
 ### Epic 1: Core Data Structures
 - [ ] **Story 1.1: The Warmup (HashMap)**
-    - [ ] **Design Doc:** Open Addressing, Linear Probing, Tombstones   
-    - [ ] **Skeleton:** CMake setup, Header definition (`hashmap.h`).
-    - [ ] **Implementation:** `FindSlot` (Linear Probe engine).
+    - [X] **Design Doc:** Open Addressing, Linear Probing, Tombstones   
+    - [X] **Skeleton:** CMake setup, Header definition (`hashmap.h`).
+    - [X] **Implementation:** `FindSlot` (Linear Probe engine).
     - [ ] **Implementation:** `Put` / `Get` / `Delete` with Load Factor check.
     - [ ] **Implementation:** `Resize` (Stop-the-world).
     - [ ] **Test:** Verify correctness with GoogleTest.
