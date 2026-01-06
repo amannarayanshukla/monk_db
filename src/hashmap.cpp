@@ -75,5 +75,24 @@ namespace monkdb {
         return std::nullopt; // Key not found
     }
 
+    void HashMap::Resize(const std::size_t new_capacity) {
+        // NOTE: This is a simple resize, also known as Stop-the-world resize
+        // TODO: Implement incremental resizing later to avoid long pauses
+
+        // used move semantics to avoid deep copy,
+        // since old_table will be discarded after this function
+        // move semantics will just move the internal pointer
+        std::vector<Entry> old_table = std::move(table_);
+        table_.resize(new_capacity);
+        capacity_ = new_capacity;
+        size_ = 0;
+
+        for (const auto &entry : old_table) {
+            if (entry.state == OCCUPIED) {
+                Put(entry.key, entry.value);
+            }
+        }
+    }
+
 
 }

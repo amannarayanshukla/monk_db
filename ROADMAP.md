@@ -6,8 +6,8 @@
     - [X] **Design Doc:** Open Addressing, Linear Probing, Tombstones   
     - [X] **Skeleton:** CMake setup, Header definition (`hashmap.h`).
     - [X] **Implementation:** `FindSlot` (Linear Probe engine).
-    - [ ] **Implementation:** `Put` / `Get` / `Delete` with Load Factor check.
-    - [ ] **Implementation:** `Resize` (Stop-the-world).
+    - [X] **Implementation:** `Put` / `Get` / `Delete` with Load Factor check.
+    - [X] **Implementation:** `Resize` (Stop-the-world).
     - [ ] **Test:** Verify correctness with GoogleTest.
     - [ ] **Benchmark:** vs std::unordered_map.
 - [ ] **Story 1.2: The MemTable (Skip List)**
