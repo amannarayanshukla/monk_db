@@ -30,10 +30,12 @@ namespace monkdb {
     }
 
     void HashMap::Put(const std::string &key, const std::string &value) {
+        // House keeping: Resize if load factor exceeds 0.7
         float loadFactor = static_cast<float>(size_) / capacity_;
         if (loadFactor >= 0.7) {
             Resize(capacity_ * 2);
         }
+
         size_t index = FindSlot(key);
 
         // Update existing key
@@ -51,5 +53,27 @@ namespace monkdb {
             return;
         }
     }
+
+    bool HashMap::Delete(const std::string &key) {
+        // NOTE: No house keeping done when we are calling DELETE, because Load Factor doesnt change on deletes
+        size_t index = FindSlot(key);
+
+        if (table_[index].state == OCCUPIED && table_[index].key == key) {
+            table_[index].state = DELETED; // Don't decrease size_ for simplicity, because of Ghost Problem(i.e. tombstones)
+            return true;
+        }
+        return false; // Key not found
+    }
+
+    std::optional<std::string> HashMap::Get(const std::string &key) {
+        // NOTE: No house keeping done when we are calling GET, since READS are more frequent than WRITES
+        size_t index = FindSlot(key);
+
+        if (table_[index].state == OCCUPIED && table_[index].key == key) {
+            return table_[index].value; // Key found
+        }
+        return std::nullopt; // Key not found
+    }
+
 
 }
