@@ -8,7 +8,7 @@
     - [X] **Implementation:** `FindSlot` (Linear Probe engine).
     - [X] **Implementation:** `Put` / `Get` / `Delete` with Load Factor check.
     - [X] **Implementation:** `Resize` (Stop-the-world).
-    - [ ] **Test:** Verify correctness with GoogleTest.
+    - [X] **Test:** Verify correctness with GoogleTest.
     - [ ] **Benchmark:** vs std::unordered_map.
 - [ ] **Story 1.2: The MemTable (Skip List)**
     - [ ] Define Node structure (flexible height).

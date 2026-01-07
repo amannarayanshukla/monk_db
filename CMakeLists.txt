@@ -1,26 +1,32 @@
-cmake_minimum_required(VERSION 3.0)
-project(MonkDB VERSION 0.1.0 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.14)
+project(monkdb)
 
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 17)
 
-# 1. GoogleTest Setup (Downloads it automatically)
+# --- 1. Fetch GoogleTest automatically ---
 include(FetchContent)
 FetchContent_Declare(
         googletest
-        URL https://github.com/google/googletest/archive/refs/heads/main.zip
+        URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
 )
+# Force shared CRT to avoid windows/linux linking issues
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
 
-# 2. The Core Library (libmonkdb)
-add_library(monkdb
-        src/skiplist.cpp
-)
-target_include_directories(monkdb PUBLIC include)
+# --- 2. Define the Core Library ---
+# We compile hashmap.cpp into a library called "monkdb_lib"
+include_directories(include)
+add_library(monkdb_lib src/hashmap.cpp)
 
-# 3. The Executable (Server)
-add_executable(monkdb_server src/main.cpp)
-target_link_libraries(monkdb_server PRIVATE monkdb_core)
-
-# 4. Tests
+# --- 3. The Test Suite ---
 enable_testing()
-add_subdirectory(tests)
+
+# Create the test executable
+add_executable(monkdb_test src/hashmap_test.cpp)
+
+# Link the test runner to your library and GoogleTest
+target_link_libraries(monkdb_test PRIVATE monkdb_lib gtest_main)
+
+# Register tests so CLion sees them
+include(GoogleTest)
+gtest_discover_tests(monkdb_test)

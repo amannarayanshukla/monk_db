@@ -27,6 +27,8 @@ class HashMap {
 		void Resize(std::size_t new_capacity);
 	public:
 		explicit HashMap(size_t capacity = 16);
+		std::size_t Size() const { return size_; }
+		std::size_t Capacity() const { return capacity_; }
 
 		// Operations
         void Put(const std::string &key, const std::string &value);

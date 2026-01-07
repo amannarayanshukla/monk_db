@@ -2,7 +2,7 @@
 // Created by aman shukla on 02/01/26.
 //
 
-#include "include/monkdb/hashmap.h"
+#include "monkdb/hashmap.h"
 #include <functional> // We will need this later for std::hash
 
 namespace monkdb {
