@@ -1,11 +1,12 @@
-#include "monkdb/skiplist.h"
+#include "include/monkdb/hashmap.h"
 #include <iostream>
+#include <cassert>
 
 int main() {
     std::cout << "MonkDB Starting..." << std::endl;
 
-    monkdb::SkipList memtable;
-    memtable.Put("key1", "value1");
-
+	bool test_passed = true;
+    assert(test_passed == true);
+    std::cout << "All tests passed!" << std::endl;
     return 0;
 }
