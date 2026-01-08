@@ -13,22 +13,21 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-# --- 2. Define the Core Library ---
-# We compile hashmap.cpp into a library called "monkdb_lib"
+# --- 2. Define the Core Library (The Engine) ---
 include_directories(include)
-add_library(monkdb_lib src/hashmap.cpp
-        src/benchmark_hashmap.cpp
-)
+add_library(monkdb_lib src/hashmap.cpp)
 
 # --- 3. The Test Suite ---
 enable_testing()
-
-# Create the test executable
 add_executable(monkdb_test src/hashmap_test.cpp)
-
-# Link the test runner to your library and GoogleTest
 target_link_libraries(monkdb_test PRIVATE monkdb_lib gtest_main)
 
-# Register tests so CLion sees them
 include(GoogleTest)
 gtest_discover_tests(monkdb_test)
+
+# --- 4. The Benchmark (The Race Car) ---
+# This creates a NEW executable target that CLion can see and run.
+# IMPORTANT: Make sure your file is named 'src/benchmark_hashmap.cpp'.
+# If you named it 'src/benchmark_hashmap.cpp', change the filename below.
+add_executable(monkdb_benchmark src/benchmark_hashmap.cpp)
+target_link_libraries(monkdb_benchmark PRIVATE monkdb_lib)

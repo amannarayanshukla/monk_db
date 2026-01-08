@@ -9,7 +9,7 @@
     - [X] **Implementation:** `Put` / `Get` / `Delete` with Load Factor check.
     - [X] **Implementation:** `Resize` (Stop-the-world).
     - [X] **Test:** Verify correctness with GoogleTest.
-    - [ ] **Benchmark:** vs std::unordered_map.
+    - [X] **Benchmark:** vs std::unordered_map.
 - [ ] **Story 1.2: The MemTable (Skip List)**
     - [ ] Define Node structure (flexible height).
     - [ ] Implement `Put` (Insertion with random height).

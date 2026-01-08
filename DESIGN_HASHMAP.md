@@ -1,8 +1,8 @@
 # Design Document: High-Performance In-Memory Hash Map
 
-**Author:** [Your Name]
+**Author:** Aman Shukla
 **Date:** 2026-01-05
-**Status:** DRAFT
+**Status:** IN PROGRESS
 
 ## 1. Core Architecture
 

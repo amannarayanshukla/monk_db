@@ -73,3 +73,19 @@ int main() {
     return 0;
 }
 ```
+
+## ⚡ Performance Benchmarks
+
+### HASHMAP LINEAR PROBING vs UNORDERED_MAP (CHAINING)
+We benchmarked MonkDB against the C++ Standard Library (`std::unordered_map`) using **1,000,000 keys** with string payloads.
+* **Environment:** Release Build (`-O3`), MacOS/Linux
+* **Dataset:** 1M unique string keys, pre-generated.
+
+| Operation | [HashMap]MonkDB (Linear Probing) | std::unordered_map (Chaining) | Result |
+| :--- |:---------------------------------| :--- | :--- |
+| **Insert (Write)** | **150 ms**                       | 194 ms | 🏆 **~22% Faster** |
+| **Lookup (Read)** | 49 ms                            | **40 ms** | ~18% Slower |
+
+**Why the difference?**
+* **Writes:** MonkDB[HashMap] uses a contiguous memory block (`std::vector`). It avoids the overhead of 1,000,000 separate heap allocations (`malloc`) that `std::unordered_map` requires for its linked-list nodes.
+* **Reads:** `std::unordered_map` wins slightly on reads because chaining avoids the "scan" cost of Linear Probing during collisions, though MonkDB remains highly competitive due to CPU cache locality.
