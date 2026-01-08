@@ -16,7 +16,9 @@ FetchContent_MakeAvailable(googletest)
 # --- 2. Define the Core Library ---
 # We compile hashmap.cpp into a library called "monkdb_lib"
 include_directories(include)
-add_library(monkdb_lib src/hashmap.cpp)
+add_library(monkdb_lib src/hashmap.cpp
+        src/benchmark_hashmap.cpp
+)
 
 # --- 3. The Test Suite ---
 enable_testing()
