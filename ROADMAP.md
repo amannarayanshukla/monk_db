@@ -11,7 +11,8 @@
     - [X] **Test:** Verify correctness with GoogleTest.
     - [X] **Benchmark:** vs std::unordered_map.
 - [ ] **Story 1.2: The MemTable (Skip List)**
-    - [ ] Define Node structure (flexible height).
+    - [X] Reading, and making notes 
+    - [ ]Define Node structure (flexible height).
     - [ ] Implement `Put` (Insertion with random height).
     - [ ] Implement `Get` (Search).
     - [ ] Implement `Delete`.
