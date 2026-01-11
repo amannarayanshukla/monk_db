@@ -11,13 +11,24 @@
     - [X] **Test:** Verify correctness with GoogleTest.
     - [X] **Benchmark:** vs std::unordered_map.
 - [ ] **Story 1.2: The MemTable (Skip List)**
-    - [X] Reading, and making notes 
-    - [ ]Define Node structure (flexible height).
-    - [ ] Implement `Put` (Insertion with random height).
-    - [ ] Implement `Get` (Search).
-    - [ ] Implement `Delete`.
-    - [ ] Implement Iterator (Start, Next, Valid, Key, Value).
-
+    - [ ] **Story 1.2: The MemTable (Skip List)**
+    - [ ] **Design Doc:** Architecture decisions.
+      - *Key Decisions:* Arena Memory Layout, "Flexible Array Member" for Nodes, Append-Only (Tombstone) Deletion.
+    - [ ] **Skeleton:** Header definitions (`skiplist.h`, `arena.h`) and CMake updates.
+    - [ ] **Implementation: The Arena**
+      - [ ] Build `SimpleArena` (Vector of 4KB blocks).
+      - [ ] Implement `Allocate(bytes)` (Bump pointer).
+    - [ ] **Implementation: The Node**
+      - [ ] Define `Node` struct with Flexible Array Member (`Node* next[1]`).
+      - [ ] Use `char*` (Arena offsets) instead of `std::string`.
+    - [ ] **Implementation: Core Engine**
+      - [ ] `Put`: Insert with random height (Append-Only).
+      - [ ] `Get`: Search with predecessor logic.
+      - [ ] **Constraint:** No `Delete` function (use Tombstones).
+    - [ ] **Implementation: Iterator**
+      - [ ] Forward Iterator (`SeekToFirst`, `Next`, `Valid`).
+    - [ ] **Test:** Verify correctness (Ordering, Range Scans) with GoogleTest.
+    - [ ] **Benchmark:** Compare Insertion/Scan speed vs `std::map`.
 ---
 
 ## Phase 2: Durability (Crash-Safe)
