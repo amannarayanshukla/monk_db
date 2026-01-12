@@ -2,7 +2,7 @@
 
 ## Phase 1: In-Memory Engine (Volatile)
 ### Epic 1: Core Data Structures
-- [ ] **Story 1.1: The Warmup (HashMap)**
+- [X] **Story 1.1: The Warmup (HashMap)**
     - [X] **Design Doc:** Open Addressing, Linear Probing, Tombstones   
     - [X] **Skeleton:** CMake setup, Header definition (`hashmap.h`).
     - [X] **Implementation:** `FindSlot` (Linear Probe engine).
@@ -11,7 +11,6 @@
     - [X] **Test:** Verify correctness with GoogleTest.
     - [X] **Benchmark:** vs std::unordered_map.
 - [ ] **Story 1.2: The MemTable (Skip List)**
-    - [ ] **Story 1.2: The MemTable (Skip List)**
     - [ ] **Design Doc:** Architecture decisions.
       - *Key Decisions:* Arena Memory Layout, "Flexible Array Member" for Nodes, Append-Only (Tombstone) Deletion.
     - [ ] **Skeleton:** Header definitions (`skiplist.h`, `arena.h`) and CMake updates.
