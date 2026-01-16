@@ -11,7 +11,7 @@
     - [X] **Test:** Verify correctness with GoogleTest.
     - [X] **Benchmark:** vs std::unordered_map.
 - [ ] **Story 1.2: The MemTable (Skip List)**
-    - [ ] Still Reading about this
+    - [X] Still Reading about this
     - [ ] **Design Doc:** Architecture decisions.
       - *Key Decisions:* Arena Memory Layout, "Flexible Array Member" for Nodes, Append-Only (Tombstone) Deletion.
     - [ ] **Skeleton:** Header definitions (`skiplist.h`, `arena.h`) and CMake updates.
