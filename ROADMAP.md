@@ -11,12 +11,11 @@
     - [X] **Test:** Verify correctness with GoogleTest.
     - [X] **Benchmark:** vs std::unordered_map.
 - [ ] **Story 1.2: The MemTable (Skip List)**
-    - [X] Still Reading about this
     - [ ] **Design Doc:** Architecture decisions.
       - *Key Decisions:* Arena Memory Layout, "Flexible Array Member" for Nodes, Append-Only (Tombstone) Deletion.
     - [ ] **Skeleton:** Header definitions (`skiplist.h`, `arena.h`) and CMake updates.
     - [ ] **Implementation: The Arena**
-      - [ ] Build `SimpleArena` (Vector of 4KB blocks).
+      - [ ] Build `SimpleArena` (Vector of 4MB blocks).
       - [ ] Implement `Allocate(bytes)` (Bump pointer).
     - [ ] **Implementation: The Node**
       - [ ] Define `Node` struct with Flexible Array Member (`Node* next[1]`).
