@@ -7,11 +7,13 @@
 ## 1. Core Architecture
 
 ### 1.1 Memory Management Strategy (The Arena)
-* **Decision:** [MALLOC vs. ARENA?]
-* **Block Size:** [SIZE?]
-    * *Constraint Check:* Why did you choose this size? Why not 4KB (Page Size)? Why not 64MB continuous?
-* **Alignment Strategy:** [HOW?]
-    * *Constraint Check:* How will you ensure pointers returned by `Allocate` start on 8-byte boundaries to avoid CPU split-locks?
+* **Decision:** ARENA
+* **Block Size:** 4MB
+  * *Justification:* * 
+    * **Vs 4KB:** Avoids excessive `malloc` syscalls and pointer metadata overhead for millions of small allocations.
+    * **Vs 64MB:** Avoids "Memory Hoarding" where a mostly-empty arena holds onto a massive chunk of RAM, preventing other components from using it. 4MB amortizes the syscall cost while keeping memory usage granular.
+* **Alignment Strategy:** How will you ensure pointers returned by `Allocate` start on 8-byte boundaries to avoid CPU split-locks?
+    * *Constraint Check:* We enforce 8-byte alignment by rounding up the allocation pointer. We effectively add padding bytes (waste) to the previous allocation to ensure the next pointer starts at an address divisible by 8 (e.g., addr & 7 == 0). This prevents unaligned memory access and split-lock penalties
 
 ### 1.2 Data Structure Selection
 * **Structure:** [NAME?]
