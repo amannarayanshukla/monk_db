@@ -108,11 +108,20 @@
   - [ ] Check MemTable -> Check Immutable MemTable -> Check SSTable files.
   - [ ] Implement Binary Search over the SSTable file.
 
-### Epic 3.3: Basic Compaction
+### Epic 3.3: Basic Compaction[CUT]
 - [ ] Story 3.3.1: The Manifest
   - Simple text file tracking live SSTables.
   - Without a "Manifest" (or file registry), when you merge file_1.sst and file_2.sst into file_3.sst, readers might still be trying to read file_1.
-- [ ] **Story 3.3.2:** Implement Merge.
+  - [ ] **Story 3.3.2:** Stop-the-World Merge.
+    - [ ] **Design Doc:** `[design_compaction.md]`
+      - *Critical Question:* K-Way Merge Sort logic.
+    - [ ] Trigger: When `N` SSTables exist (e.g., 10), pause writes.
+    - [ ] Merge all 10 files -> 1 New Large File.
+    - [ ] Delete old files. Resume writes.
+    - [ ] **Anti-Goal:** Do NOT build a background thread pool or concurrent compaction. Pausing the DB for 1 second is acceptable for Cycle 1.
+    - [ ] **Test:** `compaction_test.cc`
+      - [ ] Create 5 overlapping small files. Call `Compact()`. Verify 1 sorted file remains.
+- [ ] **Story 3.3.3:** Implement Merge.[CUT]
   - [ ] Design Doc: [design_compaction.md]
     - Critical Question: K-Way Merge Sort logic.
   - [ ] Implementation: TableReader & CompactionJob.
@@ -121,6 +130,7 @@
     - [ ] Background Job: Merge 2 SSTables -> 1 New SSTable (Drop Tombstones). If L0 has too many files, merge them into one larger L1 file. Handle Tombstones (physically remove deleted keys during merge).
   - [ ] Test: compaction_test.cc
     - [ ] Create 2 overlapping files. Merge. Verify 1 sorted file remains.
+
 
 > **🎓 Learning Outcome:** Read/Write Amplification, External Merge Sort, Immutable Files.
 > **✅ The Test (The "Overflow"):** Set RAM limit to 64MB. Insert 1GB of data. Verify no OOM crash and data exists in `.sst` files.
@@ -131,13 +141,13 @@
 **The Goal:** Maximize Operations Per Second (OPS). Remove bottlenecks.
 **The Focus:** CPU Caches, Concurrency, Hardware Optimizations.
 
-### Epic 4.1: Smart Arena (Hardware Aware)
+### Epic 4.1: Smart Arena (Hardware Aware) [CUT]
 - [ ] **Story 4.1.1:** Reduce Overhead.
   - [ ] Design Doc: [design_hardware.md] Update.
     - Critical Question: Huge Pages benefits?
 - [ ] Use `mmap` with `MAP_HUGETLB` (Huge Pages) to reduce TLB thrashing instead of `new char[]`.
 
-### Epic 4.2: Lock-Free Skip List
+### Epic 4.2: Lock-Free Skip List [CUT]
 - [ ] **Story 4.2.1:** Implement Atomics.
   - [ ] Design Doc: [design_concurrency.md]
     - Critical Question: Memory Ordering (Release/Acquire). 
@@ -147,7 +157,7 @@
   - [ ] Test: concurrency_test.cc
     - [ ] Thread Sanitizer run: 10 threads inserting simultaneously.
 
-### Epic 4.3: Read Optimizations
+### Epic 4.3: Read Optimizations[CUT]
 - [ ] **Story 4.3.1:** Bloom Filters.
   - [ ] Design Doc: [design_cache.md]
   - [ ] Build Bloom Filter for every SSTable to avoid expensive disk reads for non-existent keys.
@@ -170,17 +180,17 @@
   - [ ] Main loop.
   - [ ] Background Thread for Compaction (The "Cron Job").
 
-### Epic 5.2: Data Integrity
+### Epic 5.2: Data Integrity [CUT]
 - [ ] **Story 5.2.1:** Checksums.
   - [ ] Implement CRC32C for every node/block.
   - [ ] Panic/Crash immediately if data corruption is detected.
 
-### Epic 5.3: Flow Control
+### Epic 5.3: Flow Control[CUT]
 - [ ] **Story 5.3.1:** Write Stalls.
   - [ ] Sleep (1ms) if the disk cannot keep up with MemTable flushing, (prevent OOM).
   - [ ] Prevent OOM crashes under heavy load.
 
-### Epic 5.4: Observability
+### Epic 5.4: Observability [CUT]
 - [ ] **Story 5.4.1:** Metrics & Logs.
   - [ ] Expose P99/P95 Latency, Write Throughput, Cache Hit Rate.
   - [ ] Structured JSON Logging.
