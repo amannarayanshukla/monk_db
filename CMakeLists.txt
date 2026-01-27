@@ -29,5 +29,8 @@ gtest_discover_tests(monkdb_test)
 # This creates a NEW executable target that CLion can see and run.
 # IMPORTANT: Make sure your file is named 'src/benchmark_hashmap.cpp'.
 # If you named it 'src/benchmark_hashmap.cpp', change the filename below.
-add_executable(monkdb_benchmark src/benchmark_hashmap.cpp)
+add_executable(monkdb_benchmark src/benchmark_hashmap.cpp
+        include/monkdb/simpleArena.h
+        src/simpleArena.cpp
+        include/monkdb/simpleArena.h)
 target_link_libraries(monkdb_benchmark PRIVATE monkdb_lib)
