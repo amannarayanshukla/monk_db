@@ -20,7 +20,7 @@
 ### Epic 1.2: The Dumb Arena (Memory)
 *Goal: Stop using `malloc` for every node. Establish the memory layout.* 
   - [ ] **Story 1.2.1:** Build `SimpleArena`.
-    - [ ] Design Doc: [design_arena.md]
+    - [X] Design Doc: [design_arena.md]
       - Critical Question: How do we enforce 8-byte alignment? 
       - Critical Question: What is the policy for >4MB allocations?
     - [ ] Implementation: SimpleArena class.
