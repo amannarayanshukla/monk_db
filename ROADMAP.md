@@ -24,7 +24,7 @@
       - Critical Question: How do we enforce 8-byte alignment? 
       - Critical Question: What is the policy for >4MB allocations?
     - [ ] Implementation: SimpleArena class.
-      - [ ] Allocate 4MB blocks using `new char[]`.
+      - [X] Allocate 4MB blocks using `new char[]`.
       - [ ] Implement `Allocate(bytes)` that simply bumps a pointer, Alignment Math ((ptr + 7) & ~7)..
     - [ ] Test: arena_test.cc
       - [ ] Verify Allocate(1) followed by Allocate(8) returns aligned address.
